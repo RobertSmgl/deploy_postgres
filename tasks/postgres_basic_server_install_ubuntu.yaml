@@ -1,19 +1,39 @@
-- name: deploy_postgres | Ubuntu | Addd PostgreSQL sources key
+- name: deploy_postgres | Ubuntu | Create file for keyring
+  ansible.builtin.file:
+    path: /etc/apt/keyrings/postgresRepo.asc
+    state: touch
+  tags:
+    - basic-install 
+    - server-install
+
+- name: deploy_postgres | Ubuntu | Add PostgreSQL sources key
   ansible.builtin.apt_key:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-    dest: /etc/apt/keyrings/postgresRepo.asc
+    keyring: /etc/apt/keyrings/postgresRepo.asc
+  tags:
+    - basic-install 
+    - server-install
 
 
 - name: deploy_postgres | Ubuntu | Add PostgreSQL sources repository to repo list
   ansible.builtin.apt_repository:
     repo: 'deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/postgresRepo.asc] https://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main'
     state: present
+  tags:
+    - basic-install
+    - server-install
 
 - name: deploy_postgres | Ubuntu | Update Repo Cache
   ansible.builtin.apt:
     update_cache: yes
+  tags:
+    - basic-install
+    - server-install
 
 - name: deploy_postgres | Ubuntu | install PostgreSQL
   ansible.builtin.apt:
     name: postgresql-12
     state: present
+  tags:
+    - basic-install
+    - server-install

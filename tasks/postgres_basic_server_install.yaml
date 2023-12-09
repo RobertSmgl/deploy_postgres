@@ -2,7 +2,13 @@
 - name: deploy_postgres | start ubuntu installation
   include_tasks: postgres_basic_server_install_ubuntu.yaml
   when: ansible_distribution == "Ubuntu"
+  tags:
+    - basic-install
+    - server-install
 
 - name: deploy_postgres | start centOS installation
   include_tasks: postgres_basic_server_install_centos.yaml
   when: ansible_distribution == "CentOS"
+  tags:
+    - basic-install
+    - server-install
