@@ -1,0 +1,8 @@
+---
+# tasks file for deploy_postgres
+
+- name: deploy_postgres | include single postgreSQL installation
+  ansible.builtin.include_tasks: postgres_basic_server_install.yaml
+  tags: 
+    - basic-install
+    - server-install
