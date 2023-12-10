@@ -2,7 +2,10 @@
   ansible.builtin.yum:
     name: epel-release
     state: present
-
+  tags:
+    - basic-install
+    - server-install
+    
 - name: deploy_postgres | CentOS | Add repository
   ansible.builtin.yum:
     name: http://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
