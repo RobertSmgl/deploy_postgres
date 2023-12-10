@@ -1,10 +1,14 @@
+- name: deploy_postgres | CentOS | Install epel-release repo and pckges for success postgreSQL install
+  ansible.builtin.yum:
+    name: epel-release
+    state: present
+
 - name: deploy_postgres | CentOS | Add repository
-  ansible.builtin.yum_repository:
-    name: postgres
-    description: Postgres Repo
-    baseurl: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+  ansible.builtin.yum:
+    name: http://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+    state: present
   tags:
-    - basic-install 
+    - basic-install
     - server-install
 
 - name: deploy_postgres | CentOS | Install Postgres
